@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+/* Residências Lioz — pedra lioz, cobalto de azulejo, tinta do Tejo. Página sempre clara. */
+@theme {
+  --color-lioz: #eef1f0;
+  --color-lioz-escuro: #dfe4e2;
+  --color-cobalto: #1d3fa0;
+  --color-cobalto-escuro: #142d75;
+  --color-tejo: #10313f;
+  --color-calcada: #5f6566;
+  --color-eletrico: #f2c230;
+
+  --font-titulo: var(--font-young-serif);
+  --font-texto: var(--font-instrument-sans);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--color-lioz);
+  color: var(--color-tejo);
+  font-family: var(--font-texto), system-ui, sans-serif;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-eletrico);
+  outline-offset: 2px;
+}
