@@ -2,7 +2,7 @@
 
 Landing page de lançamento de um empreendimento residencial **fictício** em Lisboa, criada pela **GG Studio** como projeto de portfólio.
 
-**Ver ao vivo:** _(link da Vercel em breve)_
+**Ver ao vivo:** https://demo-imobiliaria-eight.vercel.app
 
 <p>
   <img src="docs/captura-computador.png" alt="Página no computador" width="68%">
