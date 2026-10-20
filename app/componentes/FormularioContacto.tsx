@@ -2,18 +2,30 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { FRACOES, nomeFracao } from "../dados/fracoes";
 
 const campo =
   "mt-1.5 w-full border-2 border-tejo/20 bg-white px-3.5 py-3 text-base text-tejo focus:border-cobalto focus:outline-none";
 
 export function FormularioContacto() {
   const [tipologia, setTipologia] = useState("");
+  const [mensagem, setMensagem] = useState("");
   const [enviado, setEnviado] = useState(false);
 
   useEffect(() => {
-    const ouvir = (e: Event) => setTipologia((e as CustomEvent<string>).detail);
-    window.addEventListener("escolher-tipologia", ouvir);
-    return () => window.removeEventListener("escolher-tipologia", ouvir);
+    const porTipologia = (e: Event) => setTipologia((e as CustomEvent<string>).detail);
+    const porFracao = (e: Event) => {
+      const nome = (e as CustomEvent<string>).detail;
+      const f = FRACOES.find((x) => nomeFracao(x) === nome);
+      if (f) setTipologia(f.tipologia);
+      setMensagem(`Tenho interesse na fração ${nome}.`);
+    };
+    window.addEventListener("escolher-tipologia", porTipologia);
+    window.addEventListener("escolher-fracao", porFracao);
+    return () => {
+      window.removeEventListener("escolher-tipologia", porTipologia);
+      window.removeEventListener("escolher-fracao", porFracao);
+    };
   }, []);
 
   if (enviado) {
@@ -71,7 +83,14 @@ export function FormularioContacto() {
         <span className="font-medium">
           Mensagem <span className="font-normal text-calcada">(opcional)</span>
         </span>
-        <textarea name="mensagem" rows={4} className={campo} placeholder="Por exemplo: prefiro visitar ao sábado de manhã." />
+        <textarea
+          name="mensagem"
+          rows={4}
+          value={mensagem}
+          onChange={(e) => setMensagem(e.target.value)}
+          className={campo}
+          placeholder="Por exemplo: prefiro visitar ao sábado de manhã."
+        />
       </label>
       <label className="flex items-start gap-3 sm:col-span-2">
         <input required type="checkbox" name="consentimento" className="mt-1 size-5 shrink-0 accent-cobalto" />

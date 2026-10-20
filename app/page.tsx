@@ -1,8 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Fragment } from "react";
 import { Apartamentos } from "./componentes/Apartamentos";
 import { FaixaAzulejo } from "./componentes/Azulejo";
 import { BotaoWhatsApp } from "./componentes/BotaoWhatsApp";
+import { Fachada } from "./componentes/Fachada";
 import { FormularioContacto } from "./componentes/FormularioContacto";
 import telhados from "@/public/fotos/telhados-tejo.jpg";
 import varandas from "@/public/fotos/varandas-alecrim.jpg";
@@ -49,6 +51,7 @@ const PERGUNTAS = [
 ];
 
 const CREDITO = "Dale Cruse, CC BY 4.0, via Wikimedia Commons";
+const TITULO = "Catorze casas em Marvila, a cinco minutos do Tejo";
 
 export default function Pagina() {
   return (
@@ -76,31 +79,41 @@ export default function Pagina() {
       <main id="inicio">
         {/* Abertura: os telhados de Lisboa a descer até ao Tejo */}
         <section className="relative isolate flex min-h-[86svh] items-end overflow-hidden">
-          <Image
-            src={telhados}
-            alt="Telhados de Lisboa a descer até ao rio Tejo, num dia de céu limpo"
-            fill
-            priority
-            placeholder="blur"
-            sizes="100vw"
-            className="-z-10 object-cover object-[60%_70%]"
-          />
+          <div className="paralaxe absolute inset-x-0 -top-[10%] -bottom-[10%] -z-10">
+            <Image
+              src={telhados}
+              alt="Telhados de Lisboa a descer até ao rio Tejo, num dia de céu limpo"
+              fill
+              priority
+              placeholder="blur"
+              sizes="100vw"
+              className="abertura-foto object-cover object-[60%_70%]"
+            />
+          </div>
           <div className="absolute inset-0 -z-10 bg-gradient-to-t from-tejo via-tejo/45 to-transparent" />
           <div className="mx-auto w-full max-w-6xl px-4 pt-40 pb-14 sm:px-6 sm:pb-20">
             <h1 className="max-w-3xl font-titulo text-5xl leading-[1.05] text-white sm:text-7xl">
-              Catorze casas em Marvila, a cinco minutos do Tejo
+              {TITULO.split(" ").map((palavra, i) => (
+                <Fragment key={i}>
+                  <span className="abertura-palavra" style={{ animationDelay: `${0.25 + i * 0.07}s` }}>
+                    {palavra}
+                  </span>{" "}
+                </Fragment>
+              ))}
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/90">
-              Apartamentos T1 a T3 com varanda, num edifício de seis pisos revestido a azulejo e pedra lioz.
-              Vendas abertas na planta.
-            </p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <a href="#apartamentos" className="bg-white px-6 py-3.5 font-medium text-tejo hover:bg-lioz">
-                Ver apartamentos
-              </a>
-              <a href="#contacto" className="border-2 border-white px-6 py-3 font-medium text-white hover:bg-white/10">
-                Marcar visita ao modelo
-              </a>
+            <div className="abertura-resto">
+              <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/90">
+                Apartamentos T1 a T3 com varanda, num edifício de seis pisos revestido a azulejo e pedra lioz.
+                Vendas abertas na planta.
+              </p>
+              <div className="mt-9 flex flex-wrap gap-3">
+                <a href="#apartamentos" className="bg-white px-6 py-3.5 font-medium text-tejo hover:bg-lioz">
+                  Escolher apartamento
+                </a>
+                <a href="#contacto" className="border-2 border-white px-6 py-3 font-medium text-white hover:bg-white/10">
+                  Marcar visita ao modelo
+                </a>
+              </div>
             </div>
           </div>
         </section>
@@ -116,14 +129,22 @@ export default function Pagina() {
           </dl>
         </section>
 
-        <FaixaAzulejo className="block h-24 sm:h-32" />
+        <FaixaAzulejo tamanho={96} />
 
         <section id="apartamentos" className="scroll-mt-20 mx-auto max-w-6xl px-4 py-20 sm:px-6">
           <h2 className="font-titulo text-4xl sm:text-5xl">Escolha a sua casa</h2>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-calcada">
-            Todas as casas têm varanda, cozinha equipada, ar condicionado e painéis solares para a água quente.
+            Toque numa fração da fachada para ver o estado, o preço e a orientação. Todas têm varanda, cozinha
+            equipada, ar condicionado e painéis solares para a água quente.
           </p>
           <div className="mt-10">
+            <Fachada />
+          </div>
+        </section>
+
+        <section id="plantas" className="scroll-mt-20 mx-auto max-w-6xl px-4 pb-20 sm:px-6">
+          <h2 className="font-titulo text-3xl sm:text-4xl">As plantas</h2>
+          <div className="mt-8">
             <Apartamentos />
           </div>
         </section>
@@ -206,7 +227,7 @@ export default function Pagina() {
           </div>
         </section>
 
-        <FaixaAzulejo className="block h-16" />
+        <FaixaAzulejo tamanho={64} />
 
         <section id="perguntas" className="scroll-mt-20 mx-auto max-w-3xl px-4 py-20 sm:px-6">
           <h2 className="font-titulo text-4xl sm:text-5xl">Perguntas frequentes</h2>
