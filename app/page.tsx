@@ -260,7 +260,7 @@ export default function Pagina() {
         </section>
       </main>
 
-      <footer className="bg-tejo px-4 py-12 text-sm text-white/70 sm:px-6">
+      <footer className="bg-tejo px-4 pt-12 pb-28 text-sm text-white/70 sm:px-6">
         <div className="mx-auto flex max-w-6xl flex-col gap-6 sm:flex-row sm:justify-between">
           <div>
             <p className="font-titulo text-2xl text-white">Lioz</p>
